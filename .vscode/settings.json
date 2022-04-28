@@ -1,0 +1,26 @@
+{
+    "C_Cpp.errorSquiggles": "Disabled",
+    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+    "C_Cpp.default.includePath": [
+        "/home/nanoshimarobot/STM32CubeIDE/workspace_1.7.0/tut_motor_driver_stm32/Core/Inc/**",
+        "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.3/Drivers/STM32F3xx_HAL_Driver/Inc/**",
+        "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.3/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy/**",
+        "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.3/Drivers/CMSIS/Device/ST/STM32F3xx/Include/**",
+        "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.3/Drivers/CMSIS/Include/**",
+        "/home/nanoshimarobot/STM32CubeIDE/workspace_1.7.0/abu2022_can_can_main/Core/Inc/**",
+        "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_H7_V1.9.0/Drivers/STM32H7xx_HAL_Driver/Inc/**",
+        "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_H7_V1.9.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/**",
+        "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_H7_V1.9.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include/**",
+        "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_H7_V1.9.0/Drivers/CMSIS/Include/**",
+        "/usr/include/boost/**",
+        "/usr/include/c++/**"
+    ],
+    "C_Cpp.default.customConfigurationVariables": {
+    
+    },
+    "C_Cpp.dimInactiveRegions": false,
+    "editor.fontFamily": "Source Han Code JP M",
+    "editor.fontSize": 18,
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.defines": ["CAN"],
+}
