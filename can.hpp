@@ -87,12 +87,12 @@ namespace nanoshimarobot_hal_lib{
 
 #ifdef HAL_CAN_MODULE_ENABLED
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *handle){
-    CAN_RxHeaderTypeDef RxHeader;
+    [[maybe_unused]] CAN_RxHeaderTypeDef RxHeader;
     printf("CAN received msg\r\n");
 }
 #elif defined(HAL_FDCAN_MODULE_ENABLED)
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *handle, uint32_t RxFifo0ITs){
-    FDCAN_RxHeaderTypeDef RxHeader;
+    [[maybe_unused]] FDCAN_RxHeaderTypeDef RxHeader;
     printf("FDCAN received msg\r\n");
 }
 #endif
