@@ -10,7 +10,7 @@ namespace nanoshimarobot_hal_lib{
     // #ifdef HAL_CAN_MODULE_ENABLED;
     #ifdef HAL_CAN_MODULE_ENABLED
     using CAN_HandleType = CAN_HandleTypeDef;
-    #elif
+    #elif defined(HAL_FDCAN_MODULE_ENABLED)
     using CAN_HandleType = FDCAN_HandleTypeDef;
     #endif
     class CAN{
@@ -38,7 +38,7 @@ namespace nanoshimarobot_hal_lib{
                     if(HAL_CAN_ActivateNotification(handle_, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK) Error_Handler();
                     if(HAL_CAN_Start(handle_) != HAL_OK) Error_Handler();
                 }
-                #elif
+                #elif defined(HAL_FDCAN_MODULE_ENABLED)
                 if(handle_->State == HAL_FDCAN_STATE_READY){
                     FDCAN_FilterTypeDef sFilterConfig;
                     sFilterConfig.IdType = FDCAN_STANDARD_ID;
@@ -66,7 +66,7 @@ namespace nanoshimarobot_hal_lib{
                 uint32_t TxMailbox;
                 if(HAL_CAN_AddTxMessage(handle_, &TxHeader, data, &TxMailbox)) Error_Handler();
                 
-                #elif
+                #elif defined(HAL_FDCAN_MODULE_ENABLED)
                 FDCAN_TxHeaderTypeDef TxHeader;
                 TxHeader.Identifier = id;
                 TxHeader.IdType = FDCAN_STANDARD_ID;
@@ -92,7 +92,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *handle){
     CAN_RxHeaderTypeDef RxHeader;
     printf("CAN received msg\r\n");
 }
-#elif
+#elif defined(HAL_FDCAN_MODULE_ENABLED)
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *handle, uint32_t RxFifo0ITs){
     FDCAN_RxHeaderTypeDef RxHeader;
     printf("FDCAN received msg\r\n");
