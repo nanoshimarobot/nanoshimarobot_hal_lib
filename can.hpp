@@ -19,7 +19,7 @@ namespace nanoshimarobot_hal_lib{
             filter_mask_(filter_mask)
             {
                 #ifdef HAL_CAN_MODULE_ENABLED
-                if(hanle_->State == HAL_CAN_STATE_READY){
+                if(handle_->State == HAL_CAN_STATE_READY){
                     CAN_FilterTypeDef sFilterConfig;
 			        sFilterConfig.FilterBank = 0;
 			        sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
