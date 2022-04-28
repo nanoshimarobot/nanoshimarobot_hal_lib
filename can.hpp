@@ -84,7 +84,7 @@ namespace nanoshimarobot_hal_lib{
             CAN_HandleType *handle_;
             uint32_t filter_;
             uint32_t filter_mask_;
-    }
+    };
 }
 
 #ifdef HAL_CAN_MODULE_ENABLED
