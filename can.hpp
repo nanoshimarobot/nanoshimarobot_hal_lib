@@ -6,16 +6,14 @@
 #include <map>
 
 namespace nanoshimarobot_hal_lib{
-    // struct CanMessage()
-    // #ifdef HAL_CAN_MODULE_ENABLED;
     #ifdef HAL_CAN_MODULE_ENABLED
     using CAN_HandleType = CAN_HandleTypeDef;
     #elif defined(HAL_FDCAN_MODULE_ENABLED)
     using CAN_HandleType = FDCAN_HandleTypeDef;
     #endif
-    class CAN{
+    class Can{
         public:
-            CAN(CAN_HandleType *handle, uint32_t filter, uint32_t filter_mask):
+            Can(CAN_HandleType *handle, uint32_t filter, uint32_t filter_mask):
             handle_(handle),
             filter_(filter),
             filter_mask_(filter_mask)
