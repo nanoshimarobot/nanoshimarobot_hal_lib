@@ -15,10 +15,10 @@ namespace nanoshimarobot_hal_lib{
     #endif
     class CAN{
         public:
-            CAN(CAN_HandleType *handle, uint32_t filter, uint32_t filter_mask)
+            CAN(CAN_HandleType *handle, uint32_t filter, uint32_t filter_mask):
             handle_(handle),
             filter_(filter),
-            filter_mask_(filter_mask):
+            filter_mask_(filter_mask)
             {
                 #ifdef HAL_CAN_MODULE_ENABLED
                 if(hanle_->State == HAL_CAN_STATE_READY){
