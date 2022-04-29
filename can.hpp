@@ -59,6 +59,7 @@ namespace nanoshimarobot_hal_lib{
                     if(HAL_FDCAN_ConfigFilter(handle_, &sFilterConfig) != HAL_OK) Error_Handler();
                     if(HAL_FDCAN_ConfigGlobalFilter(handle_, FDCAN_REJECT, FDCAN_REJECT, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE) != HAL_OK) Error_Handler();
                     if(HAL_FDCAN_ActivateNotification(handle_, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,0) != HAL_OK) Error_Handler();
+                    if(HAL_FDCAN_Start(handle_) != HAL_OK) Error_Handler();
                 }
                 #endif
             }
