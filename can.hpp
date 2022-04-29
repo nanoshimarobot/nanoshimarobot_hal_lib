@@ -91,7 +91,7 @@ namespace nanoshimarobot_hal_lib{
             }
 
             void attach(std::function<void(CAN_RxHeaderType& RxHeader, std::array<uint8_t, 8>&& data)> func){
-                rx_callback_list_.insert(std::make_pair<handle_, func>);
+                rx_callback_list_.insert(std::make_pair(handle_, func));
             }
         private:
             CAN_HandleType *handle_;
