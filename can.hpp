@@ -90,6 +90,7 @@ namespace nanoshimarobot_hal_lib{
                 TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
                 TxHeader.MessageMarker = 0;
                 if(HAL_FDCAN_AddMessageToTxFifoQ(handle_, &TxHeader, (uint8_t *)data) != HAL_OK) Error_Handler();
+                else printf("successfully sended\r\n");
                 #endif
             }
 
