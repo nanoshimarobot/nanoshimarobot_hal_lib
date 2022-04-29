@@ -97,7 +97,7 @@ namespace nanoshimarobot_hal_lib{
             CAN_HandleType *handle_;
             uint32_t filter_;
             uint32_t filter_mask_;
-            static std::map<CAN_HandleType*, std::function<void(CAN_RxHeaderType& RxHeader, std::array<uint8_t,8>&& data)>> rx_callback_list_;
+            inline static std::map<CAN_HandleType*, std::function<void(CAN_RxHeaderType&, std::array<uint8_t,8>&&)>> rx_callback_list_;
     };
 }
 
@@ -108,6 +108,7 @@ extern "C"{
         std::array<uint8_t, 8> data;
         HAL_CAN_GetRxMessage(handle, CAN_RX_FIFO0, &RxHeader, data.data());
         
+        // nanoshimarobot_hal_lib::Can::rx_callback_list_[handle](RxHeader, std::move(data));
         nanoshimarobot_hal_lib::Can::rx_callback_list_[handle](RxHeader, std::move(data));
         printf("CAN received msg\r\n");
     }
