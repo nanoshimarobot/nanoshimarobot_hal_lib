@@ -5,6 +5,7 @@
 #include <queue>
 #include <map>
 #include <utility>
+#include <cstdio>
 
 namespace nanoshimarobot_hal_lib{
     // #pragma region r_1
