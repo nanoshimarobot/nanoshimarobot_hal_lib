@@ -34,10 +34,10 @@ namespace nanoshimarobot_hal_lib{
 			        sFilterConfig.FilterBank = 0;
 			        sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
 			        sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
-		    	    sFilterConfig.FilterIdHigh = filter_<< 5;
-			        sFilterConfig.FilterIdLow = filter_<< 21;
-			        sFilterConfig.FilterMaskIdHigh = filter_mask_ << 5;
-			        sFilterConfig.FilterMaskIdLow = filter_mask_ << 21;
+		    	    sFilterConfig.FilterIdHigh = 0;
+			        sFilterConfig.FilterIdLow = 0;
+			        sFilterConfig.FilterMaskIdHigh = 0;
+			        sFilterConfig.FilterMaskIdLow = 0;
 			        sFilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
 			        sFilterConfig.FilterActivation = ENABLE;
 			        sFilterConfig.SlaveStartFilterBank = 14;
