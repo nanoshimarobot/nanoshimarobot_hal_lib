@@ -38,7 +38,7 @@ namespace nanoshimarobot_hal_lib{
 			        sFilterConfig.FilterIdLow = filter_<< 21;
 			        sFilterConfig.FilterMaskIdHigh = filter_mask_ << 5;
 			        sFilterConfig.FilterMaskIdLow = filter_mask_ << 21;
-			        sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+			        sFilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
 			        sFilterConfig.FilterActivation = ENABLE;
 			        sFilterConfig.SlaveStartFilterBank = 14;
 
