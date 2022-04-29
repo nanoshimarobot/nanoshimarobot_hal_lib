@@ -44,6 +44,7 @@ namespace nanoshimarobot_hal_lib{
 
                     if(HAL_CAN_ConfigFilter(handle_, &sFilterConfig) != HAL_OK) Error_Handler();
                     if(HAL_CAN_ActivateNotification(handle_, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK) Error_Handler();
+                    // HAL_CAN_AbortTxRequest()
                     if(HAL_CAN_Start(handle_) != HAL_OK) Error_Handler();
                 }
                 #elif defined(HAL_FDCAN_MODULE_ENABLED)
@@ -59,6 +60,7 @@ namespace nanoshimarobot_hal_lib{
                     if(HAL_FDCAN_ConfigFilter(handle_, &sFilterConfig) != HAL_OK) Error_Handler();
                     if(HAL_FDCAN_ConfigGlobalFilter(handle_, FDCAN_REJECT, FDCAN_REJECT, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE) != HAL_OK) Error_Handler();
                     if(HAL_FDCAN_ActivateNotification(handle_, FDCAN_IT_RX_FIFO0_NEW_MESSAGE,0) != HAL_OK) Error_Handler();
+                    // HAL_FDCAN_Abort
                     if(HAL_FDCAN_Start(handle_) != HAL_OK) Error_Handler();
                 }
                 #endif
@@ -74,7 +76,7 @@ namespace nanoshimarobot_hal_lib{
                 TxHeader.DLC = len;
                 TxHeader.TransmitGlobalTime = DISABLE;
                 uint32_t TxMailbox;
-                if(HAL_CAN_AddTxMessage(handle_, &TxHeader, data, &TxMailbox)) Error_Handler();
+                if(HAL_CAN_AddTxMessage(handle_, &TxHeader, (uint8_t *)data, &TxMailbox)) Error_Handler();
                 
                 #elif defined(HAL_FDCAN_MODULE_ENABLED)
                 // FDCAN_TxHeaderTypeDef TxHeader;
@@ -87,7 +89,7 @@ namespace nanoshimarobot_hal_lib{
                 TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
                 TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
                 TxHeader.MessageMarker = 0;
-                if(HAL_FDCAN_AddMessageToTxFifoQ(handle_, &TxHeader, data)) Error_Handler();
+                if(HAL_FDCAN_AddMessageToTxFifoQ(handle_, &TxHeader, (uint8_t *)data)) Error_Handler();
                 #endif
             }
 
@@ -120,7 +122,7 @@ extern "C"{
 
     #elif defined(HAL_FDCAN_MODULE_ENABLED)
     void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *handle, uint32_t RxFifo0ITs){
-        [[maybe_unused]] FDCAN_RxHeaderTypeDef RxHeader;
+        // [[maybe_unused]] FDCAN_RxHeaderTypeDef RxHeader;
         printf("FDCAN received msg\r\n");
     }
     #endif
