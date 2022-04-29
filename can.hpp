@@ -4,13 +4,22 @@
 #include <array>
 #include <queue>
 #include <map>
+#include <utility>
 
 namespace nanoshimarobot_hal_lib{
+    // #pragma region r_1
     #ifdef HAL_CAN_MODULE_ENABLED
     using CAN_HandleType = CAN_HandleTypeDef;
+    using CAN_TxHeaderType = CAN_TxHeaderTypeDef;
+    using CAN_RxHeaderType = CAN_RxHeaderTypeDef;
+    using CAN_FilterType = CAN_FilterTypeDef;
     #elif defined(HAL_FDCAN_MODULE_ENABLED)
     using CAN_HandleType = FDCAN_HandleTypeDef;
+    using CAN_TxHeaderType = FDCAN_TxHeaderTypeDef;
+    using CAN_RxHeaderType = FDCAN_RxHeaderTypeDef;
+    using CAN_FilterType = FDCAN_FilterTypeDef;
     #endif
+    // #pragma endregion r_1
     class Can{
         public:
             Can(CAN_HandleType *handle, uint32_t filter, uint32_t filter_mask):
@@ -18,9 +27,10 @@ namespace nanoshimarobot_hal_lib{
             filter_(filter),
             filter_mask_(filter_mask)
             {
+                CAN_FilterType sFilterConfig;
                 #ifdef HAL_CAN_MODULE_ENABLED
                 if(handle_->State == HAL_CAN_STATE_READY){
-                    CAN_FilterTypeDef sFilterConfig;
+                    // CAN_FilterTypeDef sFilterConfig;
 			        sFilterConfig.FilterBank = 0;
 			        sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
 			        sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
@@ -38,7 +48,7 @@ namespace nanoshimarobot_hal_lib{
                 }
                 #elif defined(HAL_FDCAN_MODULE_ENABLED)
                 if(handle_->State == HAL_FDCAN_STATE_READY){
-                    FDCAN_FilterTypeDef sFilterConfig;
+                    // FDCAN_FilterTypeDef sFilterConfig;
                     sFilterConfig.IdType = FDCAN_STANDARD_ID;
                     sFilterConfig.FilterIndex = 0;
                     sFilterConfig.FilterType = FDCAN_FILTER_MASK;
@@ -54,8 +64,9 @@ namespace nanoshimarobot_hal_lib{
             }
         
             void write(uint32_t id, uint8_t *data, uint32_t len){
+                CAN_TxHeaderType TxHeader;
                 #ifdef HAL_CAN_MODULE_ENABLED
-                CAN_TxHeaderTypeDef TxHeader;
+                // CAN_TxHeaderTypeDef TxHeader;
                 TxHeader.StdId = id;
                 TxHeader.IDE = CAN_ID_STD;
                 TxHeader.RTR = CAN_RTR_DATA;
@@ -65,7 +76,7 @@ namespace nanoshimarobot_hal_lib{
                 if(HAL_CAN_AddTxMessage(handle_, &TxHeader, data, &TxMailbox)) Error_Handler();
                 
                 #elif defined(HAL_FDCAN_MODULE_ENABLED)
-                FDCAN_TxHeaderTypeDef TxHeader;
+                // FDCAN_TxHeaderTypeDef TxHeader;
                 TxHeader.Identifier = id;
                 TxHeader.IdType = FDCAN_STANDARD_ID;
                 TxHeader.TxFrameType = FDCAN_DATA_FRAME;
@@ -78,21 +89,33 @@ namespace nanoshimarobot_hal_lib{
                 if(HAL_FDCAN_AddMessageToTxFifoQ(handle_, &TxHeader, data)) Error_Handler();
                 #endif
             }
+
+            void attach(std::function<void(CAN_RxHeaderType& RxHeader, std::array<uint8_t, 8>&& data)> func){
+                rx_callback_list_.insert(std::make_pair<handle_, func>);
+            }
         private:
             CAN_HandleType *handle_;
             uint32_t filter_;
             uint32_t filter_mask_;
+            static std::map<CAN_HandleType*, std::function<void(CAN_RxHeaderType& RxHeader, std::array<uint8_t,8)>&& data>> rx_callback_list_;
     };
 }
 
-#ifdef HAL_CAN_MODULE_ENABLED
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *handle){
-    [[maybe_unused]] CAN_RxHeaderTypeDef RxHeader;
-    printf("CAN received msg\r\n");
+extern "C"{
+    #ifdef HAL_CAN_MODULE_ENABLED
+    void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *handle){
+        nanoshimarobot_hal_lib::CAN_RxHeaderType RxHeader;
+        std::array<uint8_t, 8> data;
+        HAL_CAN_GetRxMessage(handle, CAN_RX_FIFO0, &RxHeader, data.data());
+        
+        nanoshimarobot_hal_lib::Can::rx_callback_list_[handle](RxHeader, std::move(data));
+        printf("CAN received msg\r\n");
+    }
+
+    #elif defined(HAL_FDCAN_MODULE_ENABLED)
+    void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *handle, uint32_t RxFifo0ITs){
+        [[maybe_unused]] FDCAN_RxHeaderTypeDef RxHeader;
+        printf("FDCAN received msg\r\n");
+    }
+    #endif
 }
-#elif defined(HAL_FDCAN_MODULE_ENABLED)
-void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *handle, uint32_t RxFifo0ITs){
-    [[maybe_unused]] FDCAN_RxHeaderTypeDef RxHeader;
-    printf("FDCAN received msg\r\n");
-}
-#endif
