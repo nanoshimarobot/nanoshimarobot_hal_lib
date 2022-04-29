@@ -94,8 +94,8 @@ namespace nanoshimarobot_hal_lib{
                 rx_callback_list_.insert(std::make_pair(handle_, func));
             }
 
-            static void dummy_rx_callback_list_(CAN_HandleType *handle, CAN_RxHeaderType& RxHeader, std::array<uint8_t,8>&& data){
-                if(rx_callback_list_.find(handle) != rx_callback_list_.end()) rx_callback_list_.at(handle)(RxHeader, data);
+            static void dummy_rx_callback_list_(CAN_HandleType *handle, CAN_RxHeaderType RxHeader, std::array<uint8_t,8> data){
+                if(rx_callback_list_.find(handle) != rx_callback_list_.end()) rx_callback_list_.at(handle)(RxHeader, std::move(data));
             }
         private:
             CAN_HandleType *handle_;
@@ -111,7 +111,7 @@ extern "C"{
         nanoshimarobot_hal_lib::CAN_RxHeaderType RxHeader;
         std::array<uint8_t, 8> data;
         HAL_CAN_GetRxMessage(handle, CAN_RX_FIFO0, &RxHeader, data.data());
-        nanoshimarobot_hal_lib::Can::dummy_rx_callback_list_(handle, RxHeader, std::move(data));
+        nanoshimarobot_hal_lib::Can::dummy_rx_callback_list_(handle, RxHeader, data);
         printf("CAN received msg\r\n");
     }
 
