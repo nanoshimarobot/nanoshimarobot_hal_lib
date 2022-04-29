@@ -95,7 +95,7 @@ namespace nanoshimarobot_hal_lib{
             }
 
             static void dummy_rx_callback_list_(CAN_HandleType *handle, CAN_RxHeaderType& RxHeader, std::array<uint8_t,8>&& data){
-                if(rx_callback_list_.find(handle) != rx_callback_list_.end()) rx_callback_list_[handle](RxHeader, data);
+                if(rx_callback_list_.find(handle) != rx_callback_list_.end()) rx_callback_list_.at(handle)(RxHeader, data);
             }
         private:
             CAN_HandleType *handle_;
