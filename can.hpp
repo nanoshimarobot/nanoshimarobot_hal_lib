@@ -105,7 +105,7 @@ namespace nanoshimarobot_hal_lib{
             CAN_HandleType *handle_;
             uint32_t filter_;
             uint32_t filter_mask_;
-            inline static std::map<CAN_HandleType*, std::function<void(CAN_RxHeaderType&, std::array<uint8_t,8>&&)>> rx_callback_list_;
+            static std::map<CAN_HandleType*, std::function<void(CAN_RxHeaderType&, std::array<uint8_t,8>&&)>> rx_callback_list_;
     };
 }
 
