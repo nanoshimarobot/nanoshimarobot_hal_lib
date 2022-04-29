@@ -76,7 +76,7 @@ namespace nanoshimarobot_hal_lib{
                 TxHeader.DLC = len;
                 TxHeader.TransmitGlobalTime = DISABLE;
                 uint32_t TxMailbox;
-                if(HAL_CAN_AddTxMessage(handle_, &TxHeader, (uint8_t *)data, &TxMailbox)) Error_Handler();
+                if(HAL_CAN_AddTxMessage(handle_, &TxHeader, (uint8_t *)data, &TxMailbox) != HAL_OK) Error_Handler();
                 
                 #elif defined(HAL_FDCAN_MODULE_ENABLED)
                 // FDCAN_TxHeaderTypeDef TxHeader;
@@ -89,7 +89,7 @@ namespace nanoshimarobot_hal_lib{
                 TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
                 TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
                 TxHeader.MessageMarker = 0;
-                if(HAL_FDCAN_AddMessageToTxFifoQ(handle_, &TxHeader, (uint8_t *)data)) Error_Handler();
+                if(HAL_FDCAN_AddMessageToTxFifoQ(handle_, &TxHeader, (uint8_t *)data) != HAL_OK) Error_Handler();
                 #endif
             }
 
