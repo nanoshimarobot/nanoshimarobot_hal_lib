@@ -83,7 +83,7 @@ namespace nanoshimarobot_hal_lib{
                 TxHeader.Identifier = id;
                 TxHeader.IdType = FDCAN_STANDARD_ID;
                 TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-                TxHeader.DataLength = len;
+                TxHeader.DataLength = len << 16;
                 TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
                 TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
                 TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
