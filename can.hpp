@@ -94,8 +94,8 @@ namespace nanoshimarobot_hal_lib{
                 rx_callback_list_.insert(std::make_pair(handle_, func));
             }
 
-            static void dummy_rx_callback_list_(CAN_HandleType *handle_, CAN_RxHeaderType& RxHeader, std::array<uint8_t,8>&& data){
-                rx_callback_list_[handle_](RxHeader, data);
+            static void dummy_rx_callback_list_(CAN_HandleType *handle, CAN_RxHeaderType& RxHeader, std::array<uint8_t,8>&& data){
+                rx_callback_list_[handle](RxHeader, data);
             }
         private:
             CAN_HandleType *handle_;
