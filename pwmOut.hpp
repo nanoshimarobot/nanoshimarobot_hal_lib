@@ -8,9 +8,10 @@ typedef __uint32_t uint32_t;
 #ifdef HAL_TIM_MODULE_ENABLED
 class pwmOut{
     public:
-        pwmOut(TIM_HandleTypeDef *handle, uint32_t ch):
+        pwmOut(TIM_HandleTypeDef *handle, uint32_t ch3, uint32_t max_value = 999):
             handle_(handle),
-            ch_(ch)
+            ch_(ch),
+            max_value_(max_value)
             {
                 startup();
             }
@@ -20,6 +21,9 @@ class pwmOut{
             else if(value > (float)1.0) value = 1.0;
 
             uint32_t pulse = (uint32_t)(handle_->Init.Period * value);
+
+            if(pulse > max_value_) pulse = max_value_;
+            
             __HAL_TIM_SET_COMPARE(handle_, ch_, pulse);
         }
 
@@ -38,6 +42,7 @@ class pwmOut{
     private:
         TIM_HandleTypeDef *handle_;
         uint32_t ch_;
+        uint32_t max_value_;
 };
 #endif
 }
