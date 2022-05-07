@@ -29,7 +29,7 @@ class pwmOut{
 
         void pulsewidth_us(int us){
             // uint
-            float value = (float)us / (float)31;
+            float value = (float)us / (float)20000;
             write(value);
         }
     
