@@ -20,8 +20,8 @@ class pwmOut{
             if(value < (float)0.0) value = 0.0;
             else if(value > (float)1.0) value = 1.0;
 
-            uint32_t pulse = (uint32_t)(handle_->Init.Period * value);
-            printf("%d\r\n",pulse);
+            uint32_t pulse = (uint32_t)(1000 * value);
+            // printf("%d\r\n",pulse);
             if(pulse > max_value_) pulse = max_value_;
 
             __HAL_TIM_SET_COMPARE(handle_, ch_, pulse);
@@ -29,7 +29,7 @@ class pwmOut{
 
         void pulsewidth_us(int us){
             // uint
-            float value = (float)us / (float)0.002;
+            float value = (float)us / (float)20000;
             write(value);
         }
     
