@@ -5,21 +5,23 @@
 #include <array>
 #include <cmath>
 #include <tuple>
+// #include <paire
 
 #define pwm_ch_num 4
 
 namespace nanoshimarobot_hal_lib{
     class motordriver_base{
         public:
-            motordriver_base(TIM_HandleTypeDef *handle, uint32_t ch[])
-            {
+            motordriver_base(TIM_HandleTypeDef *handle, uint32_t ch[]){
                 // motor_output_ch_.at(0) = { pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) };
                 // motor_output_ch_.at(1) = { pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) };
-                std::array<std::tuple<pwmOut, pwmOut>, 2> motor_output_ch = {
-                    {pwmOut(handle, ch[0]), pwmOut(handle, ch[1])},
-                    {pwmOut(handle, ch[2]), pwmOut(handle, ch[3])}
-                };
-                motor_output_ch_ = std::move(motor_output_ch);
+                // std::array<std::tuple<pwmOut, pwmOut>, 2> motor_output_ch = {
+                //     {pwmOut(handle, ch[0]), pwmOut(handle, ch[1])},
+                //     {pwmOut(handle, ch[2]), pwmOut(handle, ch[3])}
+                // };
+                motor_output_ch_.at(0) = std::make_pair(pwmOut(handle, ch[0]), pwmOut(handle, ch[1]));
+                motor_output_ch_.at(1) = std::make_pair(pwmOut(handle, ch[2]), pwmOut(handle, ch[3]));
+                // motor_output_ch_ = std::move(motor_output_ch);
             }
 
             void write(float duty, uint8_t motor_output_n){
@@ -33,6 +35,6 @@ namespace nanoshimarobot_hal_lib{
             }
 
         private:
-            std::array<std::tuple<pwmOut, pwmOut>, 2> motor_output_ch_;
+            std::array<std::pair<pwmOut, pwmOut>, 2> motor_output_ch_;
     };
 }
