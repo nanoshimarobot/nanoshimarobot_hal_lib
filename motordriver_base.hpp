@@ -14,7 +14,7 @@ namespace nanoshimarobot_hal_lib{
             const uint8_t motor_output_0_ = 0;
             const uint8_t motor_output_1_ = 1;
 
-            motordriver_base(TIME_HandleTypeDef *handle, std::array<uint32_t, pwm_ch_num> ch):
+            motordriver_base(TIM_HandleTypeDef *handle, std::array<uint32_t, pwm_ch_num> ch):
             {
                 for(uint8_t i = 0; i < pwm_ch_num; ++i){
                     pwm_handler_[i] = pwmOut(handle, ch[i]);
