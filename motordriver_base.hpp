@@ -9,11 +9,13 @@
 #define pwm_ch_num 4
 
 namespace nanoshimarobot_hal_lib{
-    #define motor_output_0_ 0
-    #define motor_output_1_ 1
+    // #define motor_output_0_ 0
+    // #define motor_output_1_ 1
     class motordriver_base{
         public:
-            template <typename T>
+            const uint32_t motor_output_0_ = 0;
+            const uint32_t motor_output_1_ = 1;
+            // template <typename T>
             motordriver_base(TIM_HandleTypeDef *handle, uint32_t ch[])
             {
                 // motor_output_ch_[0] = std::make_tuple(pwmOut(handle_, ch_[0]), pwmOut(handle_, ch_[1]));
