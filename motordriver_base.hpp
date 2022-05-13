@@ -34,7 +34,7 @@ namespace nanoshimarobot_hal_lib{
                     std::get<1>(motor_output_ch_[motor_output_n]).write(0);
                 }else{
                     std::get<0>(motor_output_ch_[motor_output_n]).write(0);
-                    std::get<1>(motor_output_ch_[motor_output_n]).wrtei(std::fabs(duty));
+                    std::get<1>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
                 }
             }
 
