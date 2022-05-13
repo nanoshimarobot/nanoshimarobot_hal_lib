@@ -17,8 +17,10 @@ namespace nanoshimarobot_hal_lib{
             handle_(handle),
             ch_(ch)
             {
-                motor_output_ch_[0] = std::make_tuple(pwmOut(handle_, ch_[0]), pwmOut(handle_, ch_[1]));
-                motor_output_ch_[1] = std::make_tuple(pwmOut(handle_, ch_[2]), pwmOut(handle_, ch_[3]));
+                // motor_output_ch_[0] = std::make_tuple(pwmOut(handle_, ch_[0]), pwmOut(handle_, ch_[1]));
+                // motor_output_ch_[1] = std::make_tuple(pwmOut(handle_, ch_[2]), pwmOut(handle_, ch_[3]));
+                motor_output_ch_[0] = { pwmOut(handle_, ch_[0]), pwmOut(handle_, ch_[1]) };
+                motor_output_ch_[1] = { pwmOut(handle_, ch_[2]), pwmOut(handle_, ch_[3]) };
                 // for(uint8_t i = 0; i < pwm_ch_num; ++i){
                 //     pwm_handler_[i] = pwmOut(handle, ch[i]);
                 //     pwm_handler_[i].write(0.0);
