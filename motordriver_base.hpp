@@ -13,7 +13,7 @@ namespace nanoshimarobot_hal_lib{
     #define motor_output_1_ 1
     class motordriver_base{
         public:
-            motordriver_base(TIM_HandleTypeDef *handle, std::array<uint32_t, pwm_ch_num> ch):
+            motordriver_base(TIM_HandleTypeDef *handle, std::array<uint32_t, pwm_ch_num> ch)
             {
                 motor_output_ch_[0] = std::make_tuple(pwmOut(handle, ch[0]), pwmOut(handle, ch[1]));
                 motor_output_ch_[1] = std::make_tuple(pwmOut(handle, ch[2]), pwmOut(handle, ch[3]));
