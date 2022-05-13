@@ -13,12 +13,13 @@ namespace nanoshimarobot_hal_lib{
         public:
             motordriver_base(TIM_HandleTypeDef *handle, uint32_t ch[])
             {
-                motor_output_ch_.at(0) = { pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) };
-                motor_output_ch_.at(1) = { pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) };
-                // std::array<std::tuple<pwmOut, pwmOut>, 2> motor_output_ch = {
-                //     {pwmOut(handle_, ch[0]), pwmOut(handle_, ch[1])},
-                //     {pwmOut(handle_, ch[0]), pwmOut(handle_, ch[1])}
-                // };
+                // motor_output_ch_.at(0) = { pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) };
+                // motor_output_ch_.at(1) = { pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) };
+                std::array<std::tuple<pwmOut, pwmOut>, 2> motor_output_ch = {
+                    {pwmOut(handle, ch[0]), pwmOut(handle, ch[1])},
+                    {pwmOut(handle, ch[2]), pwmOut(handle, ch[3])}
+                };
+                motor_output_ch_ = std::move(motor_output_ch);
             }
 
             void write(float duty, uint8_t motor_output_n){
