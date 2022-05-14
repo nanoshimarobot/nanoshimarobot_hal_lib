@@ -13,12 +13,7 @@ namespace nanoshimarobot_hal_lib{
     class motordriver_base{
         public:
             motordriver_base(TIM_HandleTypeDef *handle, uint32_t ch_0, uint32_t ch_1, uint32_t ch_2, uint32_t ch_3):
-            handle_(handle),
-            ch_0_(ch_0),
-            ch_1_(ch_1),
-            ch_2_(ch_2),
-            ch_3_(ch_3),
-            motor_output_ch_({{ pwmOut{handle_, ch_0_}, pwmOut{handle_, ch_1_} },{ pwmOut{handle_, ch_2_}, pwmOut{handle_, ch_3_} }})
+            motor_output_ch_({{ pwmOut{handle, ch_0}, pwmOut{handle, ch_1} },{ pwmOut{handle, ch_2}, pwmOut{handle, ch_3} }})
             {
                 // motor_output_ch_.push_back({ pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) });
                 // motor_output_ch_.push_back({ pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) });
