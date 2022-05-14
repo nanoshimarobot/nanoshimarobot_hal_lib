@@ -12,6 +12,10 @@
 namespace nanoshimarobot_hal_lib{
     class motordriver_base{
         public:
+        
+            const uint8_t motor_output_0_ = 0;
+            const uint8_t motor_output_1_ = 1;
+
             motordriver_base(TIM_HandleTypeDef *handle, std::array<uint32_t, 4> ch):
             motor_output_ch_({{ pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) },{ pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) }})
             {
@@ -35,13 +39,6 @@ namespace nanoshimarobot_hal_lib{
                     std::get<0>(motor_output_ch_[motor_output_n]).write(0);
                     std::get<1>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
                 }
-                /*if(duty >= 0){
-                    std::get<0>(motor_output_ch_[motor_output_n]).write(duty);
-                    std::get<1>(motor_output_ch_[motor_output_n]).write(0);
-                }else{
-                    std::get<0>(motor_output_ch_[motor_output_n]).write(0);
-                    std::get<1>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
-               }*/
             }
 
         private:
