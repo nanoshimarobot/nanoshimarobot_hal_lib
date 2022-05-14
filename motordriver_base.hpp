@@ -6,6 +6,7 @@
 #include <cmath>
 #include <tuple>
 #include <functional>
+#include <string>
 
 namespace nanoshimarobot_hal_lib{
     class motordriver_base{
