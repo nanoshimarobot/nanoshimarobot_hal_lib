@@ -55,6 +55,6 @@ namespace nanoshimarobot_hal_lib{
             TIM_HandleTypeDef *handle_;
             // std::vector<std::tuple<pwmOut, pwmOut>> motor_output_ch_;
             // std::map<uint8_t, pwmOut> motor_output_ch_;
-            std::array<pwmOut, 2> motor_output_ch_ = default;
+            // std::array<pwmOut, 2> motor_output_ch_ = {pwmOut(handle)};
     };
 }
