@@ -16,7 +16,11 @@ namespace nanoshimarobot_hal_lib{
             const uint8_t motor_output_0_ = 0;
             const uint8_t motor_output_1_ = 1;
 
-            motordriver_base(TIM_HandleTypeDef *handle, std::array<uint32_t, 4> ch)
+            motordriver_base(TIM_HandleTypeDef *handle, std::array<uint32_t, 4> ch):
+            motor_output_ch_({
+                { pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) },
+                { pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) }
+            })
             {
                 // motor_output_ch_[0] = pwmOut(handle, TIM_CHANNEL_1);
                 // motor_output_ch_[1] = pwmOut(handle, TIM_CHANNEL_2);
@@ -35,15 +39,15 @@ namespace nanoshimarobot_hal_lib{
 
             void write(float duty, uint8_t motor_output_n){
                 if(duty >= 0){
-                    // std::get<0>(motor_output_ch_[motor_output_n]).write(duty);
-                    // std::get<1>(motor_output_ch_[motor_output_n]).write(0);
+                    std::get<0>(motor_output_ch_[motor_output_n]).write(0);
+                    std::get<1>(motor_output_ch_[motor_output_n]).write(duty);
                     // std::get<0>(motor_output_ch_[0]).write(1);
                     // std::get<1>(motor_output_ch_[0]).write(0);
                     // motor_output_ch_[0].write(1);
                     // motor_output_ch_[1].write(0);
                 }else{
-                    // std::get<0>(motor_output_ch_[motor_output_n]).write(0);
-                    // std::get<1>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
+                    std::get<0>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
+                    std::get<1>(motor_output_ch_[motor_output_n]).write(0);
                     // std::get<0>(motor_output_ch_[0]).write(0);
                     // std::get<1>(motor_output_ch_[0]).write(1);
                     // motor_output_ch_[0].write(0);
@@ -53,7 +57,7 @@ namespace nanoshimarobot_hal_lib{
 
         private:
             TIM_HandleTypeDef *handle_;
-            // std::vector<std::tuple<pwmOut, pwmOut>> motor_output_ch_;
+            std::vector<std::tuple<pwmOut, pwmOut>> motor_output_ch_;
             // std::map<uint8_t, pwmOut> motor_output_ch_;
             // std::array<pwmOut, 2> motor_output_ch_ = {pwmOut(handle)};
     };
