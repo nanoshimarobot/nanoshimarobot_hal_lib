@@ -43,6 +43,6 @@ namespace nanoshimarobot_hal_lib{
 
         private:
             TIM_HandleTypeDef *handle_;
-            std::vector<std::tuple<pwmOaut, pwmOut>> motor_output_ch_;
+            std::vector<std::tuple<pwmOut, pwmOut>> motor_output_ch_;
     };
 }
