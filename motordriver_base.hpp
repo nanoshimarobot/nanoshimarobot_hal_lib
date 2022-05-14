@@ -12,7 +12,7 @@
 namespace nanoshimarobot_hal_lib{
     class motordriver_base{
         public:
-        
+
             const uint8_t motor_output_0_ = 0;
             const uint8_t motor_output_1_ = 1;
 
@@ -33,19 +33,16 @@ namespace nanoshimarobot_hal_lib{
 
             void write(float duty, uint8_t motor_output_n){
                 if(duty >= 0){
-                    std::get<0>(motor_output_ch_[motor_output_n]).write(duty);
-                    std::get<1>(motor_output_ch_[motor_output_n]).write(0);
+                    std::get<0>(motor_output_ch_.at(motor_output_n)).write(duty);
+                    std::get<1>(motor_output_ch_.at(motor_output_n)).write(0);
                 }else{
-                    std::get<0>(motor_output_ch_[motor_output_n]).write(0);
-                    std::get<1>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
+                    std::get<0>(motor_output_ch_.at(motor_output_n)).write(0);
+                    std::get<1>(motor_output_ch_.at(motor_output_n)).write(std::fabs(duty));
                 }
             }
 
         private:
             TIM_HandleTypeDef *handle_;
-            // uint32_t ch_0_, ch_1_, ch_2_, ch_3_;
-            // std::array<std::tuple<pwmOut, pwmOut>, 2> motor_output_ch_;
-            // std::array<std::tuple<uint32_t, uint32_t>, 2> dummy_;
-            std::vector<std::tuple<pwmOut, pwmOut>> motor_output_ch_;
+            std::vector<std::tuple<pwmOaut, pwmOut>> motor_output_ch_;
     };
 }
