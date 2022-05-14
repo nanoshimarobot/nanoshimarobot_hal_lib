@@ -12,8 +12,8 @@
 namespace nanoshimarobot_hal_lib{
     class motordriver_base{
         public:
-            motordriver_base(TIM_HandleTypeDef *handle, uint32_t ch_0, uint32_t ch_1, uint32_t ch_2, uint32_t ch_3):
-            motor_output_ch_({{ pwmOut(handle, ch_0), pwmOut(handle, ch_1) },{ pwmOut(handle, ch_2), pwmOut(handle, ch_3) }})
+            motordriver_base(TIM_HandleTypeDef *handle, std::array<uint32_t, 4> ch):
+            motor_output_ch_({{ pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) },{ pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) }})
             {
                 // motor_output_ch_.push_back({ pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) });
                 // motor_output_ch_.push_back({ pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) });
@@ -46,7 +46,6 @@ namespace nanoshimarobot_hal_lib{
 
         private:
             TIM_HandleTypeDef *handle_;
-            uint32_t ch_0_, ch_1_, ch_2_, ch_3_;
             // std::array<std::tuple<pwmOut, pwmOut>, 2> motor_output_ch_;
             // std::array<std::tuple<uint32_t, uint32_t>, 2> dummy_;
             std::vector<std::tuple<pwmOut, pwmOut>> motor_output_ch_;
