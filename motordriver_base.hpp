@@ -28,13 +28,13 @@ namespace nanoshimarobot_hal_lib{
             }
 
             void write(float duty, uint8_t motor_output_n){
-                // if(duty >= 0){
-                //     std::get<0>(motor_output_ch_[motor_output_n]).write(duty);
-                //     std::get<1>(motor_output_ch_[motor_output_n]).write(0);
-                // }else{
-                //     std::get<0>(motor_output_ch_[motor_output_n]).write(0);
-                //     std::get<1>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
-                // }
+                if(duty >= 0){
+                    std::get<0>(motor_output_ch_[motor_output_n]).write(duty);
+                    std::get<1>(motor_output_ch_[motor_output_n]).write(0);
+                }else{
+                    std::get<0>(motor_output_ch_[motor_output_n]).write(0);
+                    std::get<1>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
+                }
                 /*if(duty >= 0){
                     std::get<0>(motor_output_ch_[motor_output_n]).write(duty);
                     std::get<1>(motor_output_ch_[motor_output_n]).write(0);
