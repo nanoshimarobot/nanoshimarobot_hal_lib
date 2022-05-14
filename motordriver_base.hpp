@@ -46,6 +46,7 @@ namespace nanoshimarobot_hal_lib{
 
         private:
             TIM_HandleTypeDef *handle_;
+            // uint32_t ch_0_, ch_1_, ch_2_, ch_3_;
             // std::array<std::tuple<pwmOut, pwmOut>, 2> motor_output_ch_;
             // std::array<std::tuple<uint32_t, uint32_t>, 2> dummy_;
             std::vector<std::tuple<pwmOut, pwmOut>> motor_output_ch_;
