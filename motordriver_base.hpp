@@ -18,8 +18,8 @@ namespace nanoshimarobot_hal_lib{
 
             motordriver_base(TIM_HandleTypeDef *handle, std::array<uint32_t, 4> ch)
             {
-                motor_output_ch_[0] = pwmOut(handle, TIM_CHANNEL_1);
-                motor_output_ch_[1] = pwmOut(handle, TIM_CHANNEL_2);
+                // motor_output_ch_[0] = pwmOut(handle, TIM_CHANNEL_1);
+                // motor_output_ch_[1] = pwmOut(handle, TIM_CHANNEL_2);
                 // moto
                 // motor_output_ch_.push_back({ pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) });
                 // motor_output_ch_.push_back({ pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) });
@@ -39,15 +39,15 @@ namespace nanoshimarobot_hal_lib{
                     // std::get<1>(motor_output_ch_[motor_output_n]).write(0);
                     // std::get<0>(motor_output_ch_[0]).write(1);
                     // std::get<1>(motor_output_ch_[0]).write(0);
-                    motor_output_ch_[0].write(1);
-                    motor_output_ch_[1].write(0);
+                    // motor_output_ch_[0].write(1);
+                    // motor_output_ch_[1].write(0);
                 }else{
                     // std::get<0>(motor_output_ch_[motor_output_n]).write(0);
                     // std::get<1>(motor_output_ch_[motor_output_n]).write(std::fabs(duty));
                     // std::get<0>(motor_output_ch_[0]).write(0);
                     // std::get<1>(motor_output_ch_[0]).write(1);
-                    motor_output_ch_[0].write(0);
-                    motor_output_ch_[1].write(1);
+                    // motor_output_ch_[0].write(0);
+                    // motor_output_ch_[1].write(1);
                 }
             }
 
