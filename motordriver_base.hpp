@@ -18,7 +18,7 @@ namespace nanoshimarobot_hal_lib{
             ch_1_(ch_1),
             ch_2_(ch_2),
             ch_3_(ch_3),
-            motor_output_ch_({{ pwmOut(handle_, ch_0_), pwmOut(handle_, ch_1_) },{ pwmOut(handle_, ch_2_), pwmOut(handle_, ch_3_) }})
+            motor_output_ch_({{ pwmOut{handle_, ch_0_}, pwmOut{handle_, ch_1_} },{ pwmOut{handle_, ch_2_}, pwmOut{handle_, ch_3_} }})
             {
                 // motor_output_ch_.push_back({ pwmOut(handle, ch[0]), pwmOut(handle, ch[1]) });
                 // motor_output_ch_.push_back({ pwmOut(handle, ch[2]), pwmOut(handle, ch[3]) });
