@@ -3,7 +3,6 @@
 #include <vector>
 #include <map>
 #include <string>
-// #include 
 
 namespace nanoshimarobot_hal_lib{
     class PID{
@@ -16,26 +15,40 @@ namespace nanoshimarobot_hal_lib{
                 { "kd", params[2]}
             })
             {
-                i_sum_ = 0.0;
             }
 
             float pos_type(float target_, float current_){
-                float output = 0.0;
-                float error = target_ - current_;
-                i_sum_ += error *  dt_;
-                output += params_.at("kp") * error;
+                output = 0.0;
+                error[0] = target_ - current_;
+                if(fabs(error[0]) < 1.0) i_sum_ = 0;
+                i_sum_ += error[0] * dt_;
+                output += params_.at("kp") * error[0];
                 output += params_.at("ki") * i_sum_;
-                output += params_.at("kd") * 
+                output += params_.at("kd") * (error[0] - error[1])/dt_;
+                error[2] = error[1];
+                error[1] = error[0];
+
+                return output;
             }
             
             float vel_type(float target_, float current_){
+                error[0] = target_ - current_;
+                output += params_.at("kp") * (error[0] - error[1]);
+                output += params_.at("ki") * error[0] * dt_;
+                output += params_.at("kd") * (error[0] - 2.0 * error[1] + error[2]) / dt_;
 
+                return output;
             }
         private:
+            void _swap_error(void){
+                error[2] = error[1];
+                error[1] = error[0];
+            }
 
             std::map<std::string, float> params_;
             std::array<float, 3> error = {0.0, 0.0, 0.0};
             float dt_;
-            float i_sum_;
+            float i_sum_ = 0;
+            float output = 0.0;
     };
 }

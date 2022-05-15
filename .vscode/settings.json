@@ -4,7 +4,7 @@
     "C_Cpp.default.includePath": [
         "/home/nanoshimarobot/STM32CubeIDE/workspace_1.9.0/Torobo2022_MD_Firmware/Core/Inc/**",
         "${workspaceFolder}/**",
-        "/home/nanoshimarobot/STM32CubeIDE/workspace_1.9.0/Torobo2022_MD_Firmware/Core/Inc/**",
+        "/home/nanoshimarobot/STM32CubeIDE/workspace_1.9.0/Torobo2022_MD_Firmware_/Core/Inc/**",
         "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.0/Drivers/STM32F3xx_HAL_Driver/Inc/**",
         "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.0/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy/**",
         "/home/nanoshimarobot/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.0/Drivers/CMSIS/Device/ST/STM32F3xx/Include/**",
